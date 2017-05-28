@@ -6,8 +6,8 @@
 #include <stdint.h>
 #include <stdlib.h>
 
-#include <gpn-tft.c>
-#include <gpn-random.c>
+#include "gpn-tft.hpp"
+#include "gpn-random.hpp"
 
 Badge badge;
 
