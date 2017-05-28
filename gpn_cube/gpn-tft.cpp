@@ -9,14 +9,21 @@ extern TFT_ILI9163C tft;
 #define ABS(p) (((p)<0) ? -(p) : (p))
 
 
-void lcdSetPixel(uint16_t x, uint16_t y, uint8_t color)
+
+void lcdSetPixel(unsigned short x, unsigned short y, unsigned short color)
 {
-	uint8_t r = (color & 0b11100000);
-	uint8_t g = (color & 0b00011100) << 3;
-	uint8_t b = (color & 0b00000011) << 6;
+	//color = color >> 1;
+	uint8_t r = (color & 0b11100000) >> 5;
+	r = (r * 255) / 7; 
+
+	uint8_t g = (color & 0b00011100) >> 2;
+	g = (g * 255) / 7; 
+
+	uint8_t b = (color & 0b00000011);
+	b = (b * 255) / 3; 
+
     tft.drawPixel(x, y, tft.Color565(r,g,b));
 }
-
 void lcdDisplay()
 {
   tft.writeFramebuffer();

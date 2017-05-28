@@ -554,7 +554,7 @@ void DoString (uint16_t x, uint16_t y, const char* data)
 {
 	  tft.setTextSize(1);
 
-	tft.setTextColor(0x0000);
+	tft.setTextColor(0x0000, 0xFFFF);
   	tft.setCursor(x,y);
   	tft.print(data);
 	return;
