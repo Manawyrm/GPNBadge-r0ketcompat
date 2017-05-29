@@ -10,6 +10,7 @@
 
 #include "gpn-tft.hpp"
 #include "gpn-random.hpp"
+#include "gpn-input.hpp"
 
 Badge badge;
 
@@ -30,6 +31,9 @@ void setup()
   tft.setRotation(2);
   tft.scroll(32);
   tft.fillScreen(0x0000);
+	setAnalogMUX(MUX_JOY);
+    delay(20);
+  setGPIO(LCD_LED, HIGH);
 
 }
 
@@ -48,6 +52,8 @@ void delayms(uint16_t delayt)
 #define CULLING
 #define TRAIL_LENGTH 13
 #define THICKNESS 4
+
+uint8_t clearScreenForFrame = true; 
 
 typedef struct {
 	float x;
@@ -103,7 +109,10 @@ void ram(void) {
 	while(1)
 	{
 		// Clear screen to black
-		drawRectFill(0, 0, SIZE, SIZE, 0x00);
+		if (clearScreenForFrame)
+		{
+			drawRectFill(0, 0, SIZE, SIZE, 0x00);
+		}
 		
 		// Rotate arbitrarily
 		rx += 0.05;
@@ -184,14 +193,14 @@ void ram(void) {
 		delayms(10);
 		lcdDisplay();
 		
-		/*int key = getInputRaw();
+		int key = getInputRaw();
 		if(key&BTN_LEFT) {
-			return;
+			clearScreenForFrame = !clearScreenForFrame;
 		}
 		if(key&BTN_ENTER) {
 			// enlarge on middle joystick press
 			distance = DISTANCE*.5;
-		}*/
+		}
 	}
 }
 
